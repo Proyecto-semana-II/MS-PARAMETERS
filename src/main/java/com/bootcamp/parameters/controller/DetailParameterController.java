@@ -80,8 +80,8 @@ public class DetailParameterController extends Shared{
 	}
 	
 	@DeleteMapping("/{idDetailParameter}")
-	public Mono<ResponseEntity<DetailParameter>> deleteTypeParameter(@PathVariable String id){
-		return service.findById(id).flatMap(p -> {
+	public Mono<ResponseEntity<DetailParameter>> deleteTypeParameter(@PathVariable String idDetailParameter){
+		return service.findById(idDetailParameter).flatMap(p -> {
 			p.setRegistrationStatus(Constants.ESTADO_NO_VIGENTE);
 			p.setAudit(getBeanModificationParameters(p.getAudit()));
 			return service.save(p);
