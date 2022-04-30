@@ -1,5 +1,7 @@
 package com.bootcamp.parameters.service.impl;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,17 @@ public class ParameterServiceImpl implements ParameterService {
 	
 	@Override
 	public Mono<Parameter> findById(String id) {
+		if (id.equals("2")) {
+			throw new IllegalStateException("NO HAY");
+		}
+		if (id.equals("1")) {
+			try {
+				TimeUnit.SECONDS.sleep(5L);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return repository.findById(id);
 	}
 
