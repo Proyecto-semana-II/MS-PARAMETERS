@@ -25,22 +25,17 @@ public class ParameterServiceImpl implements ParameterService {
 
 	@Override
 	public Flux<Parameter> findAllByRegistrationStatus(String registrationStatus) {
+		//TEST CON EL CIRCUITBREAKER
+		/*try {
+			TimeUnit.SECONDS.sleep(5L);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
 		return repository.findAllByRegistrationStatus(registrationStatus);
 	}
 	
 	@Override
 	public Mono<Parameter> findById(String id) {
-		if (id.equals("2")) {
-			throw new IllegalStateException("NO HAY");
-		}
-		if (id.equals("1")) {
-			try {
-				TimeUnit.SECONDS.sleep(5L);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		return repository.findById(id);
 	}
 

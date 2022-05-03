@@ -1,8 +1,6 @@
 package com.bootcamp.parameters.controller;
 
 import java.net.URI;
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +18,6 @@ import com.bootcamp.parameters.service.ParameterService;
 import com.bootcamp.parameters.util.Constants;
 import com.bootcamp.parameters.util.Shared;
 
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -39,7 +36,6 @@ public class ParameterController extends Shared{
 				);
 	}
 	
-	@CircuitBreaker(name="parameter1")
 	@GetMapping("/{id}")
 	public Mono<ResponseEntity<Parameter>> getById(@PathVariable String id) throws InterruptedException {
 		return service.findById(id)
