@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcamp.parameters.entity.Parameter;
+import com.bootcamp.parameters.service.KafkaListenerService;
 import com.bootcamp.parameters.service.ParameterService;
 import com.bootcamp.parameters.util.Constants;
 import com.bootcamp.parameters.util.Shared;
@@ -28,11 +29,22 @@ public class ParameterController extends Shared{
 	@Autowired
 	private ParameterService service;
 	
+	@Autowired
+	KafkaListenerService listener;
+	
 	@GetMapping
 	public Mono<ResponseEntity<Flux<Parameter>>> getAllActives() {
 		return Mono.just(ResponseEntity.ok()
 				.contentType(MediaType.APPLICATION_JSON)
 				.body(service.findAllByRegistrationStatus(Constants.ESTADO_VIGENTE))
+				);
+	}
+	
+	@GetMapping("/kafka")
+	public Mono<ResponseEntity<Flux<Parameter>>> getAllActivesKafka() {
+		return Mono.just(ResponseEntity.ok()
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(listener.findAllKafka(Constants.ESTADO_VIGENTE))
 				);
 	}
 	
